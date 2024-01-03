@@ -25,3 +25,25 @@ spec:
     ingress:
       enabled: true
       className: nginx
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: directus
+  namespace: podinfo
+spec:
+  releaseName: directus
+  chart:
+    spec:
+      chart: directus
+      sourceRef:
+        kind: HelmRepository
+        name: directus
+  interval: 50m
+  install:
+    remediation:
+      retries: 3
+  values:
+    ingress:
+      enabled: true
+      className: nginx
